@@ -1,4 +1,5 @@
 
 
 class Agent:
-    pass
+    def __init__(self):
+        self.point = 5000

@@ -8,6 +8,3 @@ class Percept(Enum):
     Bump = "P"
     Scream = "C"
     Glow = "G"
-    
-    def __str__(self):
-        return self.value

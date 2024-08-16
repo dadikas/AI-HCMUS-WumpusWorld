@@ -8,7 +8,3 @@ class ActionAgent(Enum):
     Shoot = "S"
     Climb = "C"
     Heal = "H"
-
-    
-    def __str__(self):
-        return self.value
