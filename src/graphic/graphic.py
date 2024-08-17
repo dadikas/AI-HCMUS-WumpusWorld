@@ -1,9 +1,8 @@
 import pygame
 class Graphic:
-    def __init__(self, N, input_data):
+    def __init__(self, file_path):
         # Initialize grid as a 2D array of lists
-        self.N = N
-        self.grid = [[cell.split(',') if cell != '-' else [] for cell in line.split('.')] for line in input_data]
+        self.N, self.grid = self.read_input(file_path)
         self.cell_size = 64
         self.window_size = self.N * self.cell_size
         self.screen = None
@@ -62,13 +61,12 @@ class Graphic:
             nx, ny = x + dx, y + dy
             if 0 <= nx < self.N and 0 <= ny < self.N:
                 if percept not in self.grid[nx][ny]:
-                    self.grid[nx][ny].append(percept)  # Append percept to the list in the cell
+                    self.grid[nx][ny].append(percept)
 
     def draw_grid(self):
         for x in range(self.N):
             for y in range(self.N):
                 rect = pygame.Rect(x * self.cell_size, y * self.cell_size, self.cell_size, self.cell_size)
-                pygame.draw.rect(self.screen, (255, 255, 255), rect)
                 pygame.draw.rect(self.screen, (0, 0, 0), rect, 1)
                 cell_content = self.grid[x][y]
                 for element in cell_content:
@@ -88,20 +86,13 @@ class Graphic:
 
         pygame.quit()
 
-# Example Input
-input_data = [
-    "G.G.-.-.P-.-.-.-.-.-",
-    "G.G.-.-.P.-.-.-.G.-",
-    "-.-.W.-.P.-.-.-.-.-",
-    "-.P.-.-.-.-.-.-.-.-",
-    "P.-.-.-.-.-.-.-.-.-",
-    "-.-.-.-.P_G.-.-.-.-.-",
-    "-.-.-.H_P.-.-.P.-.-.-",
-    "-.-.-.-.-.-.-.G.-.-",
-    "-.-.-.-.-.-.-.-.P.-",
-    "A.-.-.-.-.-.-.-.-.-"
-]
+    def read_input(self, file_path):
+        with open(file_path, 'r') as f:
+            lines = f.readlines()
 
-# Initialize and run the Wumpus World
-wumpus_world = Graphic(10, input_data)
+        N = int(lines[0].strip())  # First line is the grid size
+        grid = [[cell.split(',') if cell != '-' else [] for cell in line.strip().split('.')] for line in lines[1:]]
+        return N, grid
+
+wumpus_world = Graphic("../../asset/input/level1.txt")
 wumpus_world.run_game()
