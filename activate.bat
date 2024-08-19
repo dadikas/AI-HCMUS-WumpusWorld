@@ -1,6 +1,6 @@
 @echo off
 REM Activate the virtual environment
-if exist venv\Scripts\activate (
+if exist venv\Srcipts\activate (
     call venv\Scripts\activate
     echo Virtual environment activated.
 ) else (
