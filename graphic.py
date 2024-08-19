@@ -161,10 +161,14 @@ class Graphic:
     def display_score(self):
         # Draw the score in the sidebar
         score_text = f"Score: {self.agent.score}"
+        hp_text = f"HP: {self.agent.hp}"
         self.font.size = 30
-        score_position = (self.grid_size + 20, 20)
+        score_position = (self.grid_size + 10, 20)
+        hp_text_position = (self.grid_size + 10, 50)
+        
         self.screen.fill((255, 255, 255), rect=pygame.Rect(self.grid_size, 0, self.sidebar_width, self.window_height))  # Clear the sidebar area
         self.font.render_to(self.screen, score_position, score_text, (0, 0, 0))
+        self.font.render_to(self.screen, hp_text_position, hp_text, (0, 0, 0))
     def run_game(self):
         running = True
         flag = True
@@ -190,6 +194,6 @@ class Graphic:
             if self.agent.position == self.start_position:
                 flag = False
             pygame.display.flip()
-            clock.tick(5)
+            clock.tick(50)
 
 
